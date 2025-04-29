@@ -1,176 +1,189 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Загадки Космоса</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap" rel="stylesheet">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Roboto', sans-serif;
-      color: #fff;
-      background: url('https://cdn.pixabay.com/photo/2017/09/02/19/45/planet-2709669_1280.jpg') no-repeat center center fixed;
-      background-size: cover;
-      background-attachment: fixed;
-      background-blend-mode: overlay;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    header {
-      text-align: center;
-      padding: 2rem;
-      background: rgba(0, 0, 0, 0.6);
-    }
-
-    header h1 {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 3rem;
-      margin-bottom: 1rem;
-    }
-
-    header p {
-      font-size: 1.2rem;
-      color: #cfe3fa;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
-      width: 90%;
-      margin: auto;
-      flex: 1;
-    }
-
-    .card {
-      perspective: 1000px;
-    }
-
-    .card-inner {
-      position: relative;
-      width: 100%;
-      height: 280px;
-      transition: transform 0.8s;
-      transform-style: preserve-3d;
-    }
-
-    .card:hover .card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .card-front, .card-back {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-      border-radius: 1rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-      font-size: 1rem;
-      background: rgba(0, 0, 0, 0.6);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-      text-align: center;
-    }
-
-    .card-front img {
-      width: 60px;
-      height: 60px;
-      margin-bottom: 0.5rem;
-    }
-
-    .card-back {
-      transform: rotateY(180deg);
-    }
-
-    footer {
-      text-align: center;
-      padding: 1rem;
-      font-size: 0.9rem;
-      background-color: rgba(0, 0, 0, 0.6);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Космический гид | Изучаем Вселенную</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/icons/rocket.png" type="image/png">
 </head>
-
 <body>
-  <header>
-    <h1>Загадки Космоса</h1>
-    <p>Интерактивные факты о Вселенной, которые удивят вас</p>
-  </header>
+    <!-- Анимированный фон -->
+    <div class="stars"></div>
+    <div class="twinkling"></div>
+    
+    <!-- Главный контейнер -->
+    <div class="container">
+        <!-- Шапка сайта -->
+        <header class="header">
+            <div class="logo">
+                <i class="fas fa-rocket"></i>
+                <h1>Космический гид</h1>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#cards-section" class="nav-link">Объекты</a></li>
+                    <li><a href="#quiz-section" class="nav-link">Викторина</a></li>
+                    <li><a href="#achievements" class="nav-link">Достижения</a></li>
+                    <li><a href="#about" class="nav-link">О проекте</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Меню">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
 
-  <main class="grid">
-    <div class="card">
-      <div class="card-inner">
-        <div class="card-front">
-          <img src="https://cdn-icons-png.flaticon.com/512/2909/2909821.png" alt="Венера">
-          <p>Факт 1</p>
-        </div>
-        <div class="card-back">
-          Один день на Венере длится дольше её года — планета вращается так медленно, что сутки там составляют 243 земных дня, а год — только 225.
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-inner">
-        <div class="card-front">
-          <img src="https://cdn-icons-png.flaticon.com/512/4144/4144550.png" alt="Звезды">
-          <p>Факт 2</p>
-        </div>
-        <div class="card-back">
-          В Млечном Пути находится более 200 миллиардов звёзд, и почти у каждой может быть собственная планетная система.
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-inner">
-        <div class="card-front">
-          <img src="https://cdn-icons-png.flaticon.com/512/3159/3159066.png" alt="Сатурн">
-          <p>Факт 3</p>
-        </div>
-        <div class="card-back">
-          На Сатурне и Юпитере могут идти дожди из алмазов, вызванные давлением и метаном в атмосфере — настоящий космический блеск!
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-inner">
-        <div class="card-front">
-          <img src="https://cdn-icons-png.flaticon.com/512/4380/4380894.png" alt="Вакуум">
-          <p>Факт 4</p>
-        </div>
-        <div class="card-back">
-          В условиях космического вакуума человеческая кровь может закипеть из-за отсутствия давления, несмотря на то, что тело ещё не замерзло.
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-inner">
-        <div class="card-front">
-          <img src="https://cdn-icons-png.flaticon.com/512/1853/1853790.png" alt="Солнце">
-          <p>Факт 5</p>
-        </div>
-        <div class="card-back">
-          Свет от Солнца доходит до Земли за 8 минут и 20 секунд — значит, мы видим Солнце таким, каким оно было 8 минут назад.
-        </div>
-      </div>
-    </div>
-  </main>
+        <!-- Герой-секция -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Исследуйте тайны Вселенной</h2>
+                <p>Откройте для себя удивительные космические объекты, пройдите викторину и соберите все достижения!</p>
+                <button class="cta-button" id="explore-btn">Начать исследование</button>
+            </div>
+            <div class="hero-image">
+                <img src="images/backgrounds/astronaut.png" alt="Астронавт в космосе" class="floating">
+            </div>
+        </section>
 
-  <footer>
-    <p>Сайт создан с использованием HTML, CSS и JS. Интерактивный контент — авторская работа. Хостинг: GitHub Pages.</p>
-  </footer>
+        <!-- Карточки с космическими объектами -->
+        <section class="cards-section" id="cards-section">
+            <h2 class="section-title">Космические объекты</h2>
+            <div class="filter-controls">
+                <button class="filter-btn active" data-filter="all">Все</button>
+                <button class="filter-btn" data-filter="planet">Планеты</button>
+                <button class="filter-btn" data-filter="star">Звезды</button>
+                <button class="filter-btn" data-filter="galaxy">Галактики</button>
+                <button class="filter-btn" data-filter="other">Другие</button>
+            </div>
+            <div class="cards-container" id="cards-container">
+                <!-- Карточки будут добавлены через JavaScript -->
+            </div>
+        </section>
+
+        <!-- Модальное окно для карточек -->
+        <div class="modal" id="card-modal">
+            <div class="modal-content">
+                <span class="close-modal">&times;</span>
+                <div class="modal-body">
+                    <img id="modal-image" src="" alt="">
+                    <div class="modal-text">
+                        <h3 id="modal-title"></h3>
+                        <p id="modal-description"></p>
+                        <div class="modal-facts">
+                            <h4>Интересные факты:</h4>
+                            <ul id="modal-facts"></ul>
+                        </div>
+                        <div class="modal-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-ruler-combined"></i>
+                                <span id="modal-size"></span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-temperature-low"></i>
+                                <span id="modal-temp"></span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-history"></i>
+                                <span id="modal-age"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Викторина -->
+        <section class="quiz-section" id="quiz-section">
+            <h2 class="section-title">Космическая викторина</h2>
+            <div class="quiz-container">
+                <div class="quiz-header">
+                    <div class="quiz-progress">
+                        <div class="progress-bar" id="progress-bar"></div>
+                        <span id="progress-text">0/10</span>
+                    </div>
+                    <div class="quiz-score">
+                        <i class="fas fa-star"></i>
+                        <span id="score">0</span>
+                    </div>
+                </div>
+                <div class="quiz-body">
+                    <h3 id="question"></h3>
+                    <div class="options" id="options"></div>
+                </div>
+                <div class="quiz-footer">
+                    <button id="next-btn" class="quiz-btn" disabled>Следующий вопрос</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Достижения -->
+        <section class="achievements-section" id="achievements">
+            <h2 class="section-title">Достижения</h2>
+            <div class="achievements-container" id="achievements-container">
+                <!-- Достижения будут добавлены через JavaScript -->
+            </div>
+        </section>
+
+        <!-- О проекте -->
+        <section class="about-section" id="about">
+            <h2 class="section-title">О проекте</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Космический гид - это интерактивный образовательный проект, созданный для всех, кто интересуется астрономией и хочет узнать больше о нашей Вселенной.</p>
+                    <p>Наш сайт предлагает:</p>
+                    <ul>
+                        <li>Подробную информацию о различных космических объектах</li>
+                        <li>Интерактивную викторину для проверки знаний</li>
+                        <li>Систему достижений для мотивации к обучению</li>
+                        <li>Красивый и удобный интерфейс</li>
+                    </ul>
+                    <p>Проект постоянно развивается, и в будущем мы планируем добавить новые функции, такие как 3D-модели космических объектов и систему отслеживания реальных космических событий.</p>
+                </div>
+                <div class="about-image">
+                    <img src="images/backgrounds/telescope.png" alt="Телескоп">
+                </div>
+            </div>
+        </section>
+
+        <!-- Подвал сайта -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Космический гид</h3>
+                    <p>Исследуйте Вселенную с нами!</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Контакты</h3>
+                    <p>cosmos@guide.com</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Подписаться на новости</h3>
+                    <form class="subscribe-form">
+                        <input type="email" placeholder="Ваш email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Космический гид. Все права защищены.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Кнопка возврата наверх -->
+    <button id="back-to-top" class="back-to-top" aria-label="Наверх">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Скрипты -->
+    <script src="scripts/main.js"></script>
 </body>
-
 </html>
