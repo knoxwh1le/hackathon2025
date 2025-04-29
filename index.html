@@ -3,187 +3,627 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Космический гид | Изучаем Вселенную</title>
-    <link rel="stylesheet" href="styles/main.css">
+    <title>Физика в карточках | Интерактивный учебник</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
-    <link rel="icon" href="images/icons/rocket.png" type="image/png">
+    <style>
+        :root {
+            --neon-blue: #08f7fe;
+            --neon-pink: #fe53bb;
+            --neon-green: #09fbd3;
+            --neon-purple: #7122fa;
+            --dark-bg: #0f0f1a;
+            --card-bg: rgba(15, 15, 26, 0.8);
+            --text-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--dark-bg) url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2110&q=80') no-repeat center center fixed;
+            background-size: cover;
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        header {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink), var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(8, 247, 254, 0.3);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue);
+            }
+            to {
+                text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue), 0 0 30px var(--neon-pink);
+            }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background: transparent;
+            color: var(--text-color);
+            border: 2px solid var(--neon-purple);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--neon-purple);
+            box-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple);
+            transform: translateY(-3px);
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(113, 34, 250, 0.4), transparent);
+            transition: 0.5s;
+        }
+
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            cursor: pointer;
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            position: relative;
+            height: 250px;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .card.neon-border {
+            position: relative;
+        }
+
+        .card.neon-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 15px;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink), var(--neon-green));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card.neon-border:hover::before {
+            opacity: 1;
+            animation: borderGlow 2s linear infinite;
+        }
+
+        @keyframes borderGlow {
+            0% {
+                background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink), var(--neon-green));
+            }
+            33% {
+                background: linear-gradient(45deg, var(--neon-pink), var(--neon-green), var(--neon-blue));
+            }
+            66% {
+                background: linear-gradient(45deg, var(--neon-green), var(--neon-blue), var(--neon-pink));
+            }
+            100% {
+                background: linear-gradient(45deg, var(--neon-blue), var(--neon-pink), var(--neon-green));
+            }
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+        }
+
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-front {
+            justify-content: space-between;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            overflow-y: auto;
+        }
+
+        .card-category {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            align-self: flex-start;
+        }
+
+        .mechanics {
+            background-color: rgba(8, 247, 254, 0.2);
+            color: var(--neon-blue);
+            border: 1px solid var(--neon-blue);
+        }
+
+        .thermodynamics {
+            background-color: rgba(254, 83, 187, 0.2);
+            color: var(--neon-pink);
+            border: 1px solid var(--neon-pink);
+        }
+
+        .electrodynamics {
+            background-color: rgba(9, 251, 211, 0.2);
+            color: var(--neon-green);
+            border: 1px solid var(--neon-green);
+        }
+
+        .optics {
+            background-color: rgba(113, 34, 250, 0.2);
+            color: var(--neon-purple);
+            border: 1px solid var(--neon-purple);
+        }
+
+        .quantum {
+            background-color: rgba(255, 165, 0, 0.2);
+            color: orange;
+            border: 1px solid orange;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        .card-content {
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .flip-icon {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card.flipped .flip-icon {
+            transform: rotate(180deg);
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 30px;
+            border: none;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            color: white;
+            font-size: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 10px rgba(8, 247, 254, 0.5);
+        }
+
+        .search-input::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .no-results {
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 2rem;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .card {
+                height: auto;
+                min-height: 250px;
+            }
+        }
+
+        /* Анимация появления карточек */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            animation: fadeIn 0.5s ease forwards;
+            opacity: 0;
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.2s; }
+        .card:nth-child(3) { animation-delay: 0.3s; }
+        .card:nth-child(4) { animation-delay: 0.4s; }
+        .card:nth-child(5) { animation-delay: 0.5s; }
+        .card:nth-child(6) { animation-delay: 0.6s; }
+        .card:nth-child(7) { animation-delay: 0.7s; }
+        .card:nth-child(8) { animation-delay: 0.8s; }
+        .card:nth-child(9) { animation-delay: 0.9s; }
+        .card:nth-child(10) { animation-delay: 1s; }
+    </style>
 </head>
 <body>
-    <!-- Анимированный фон -->
-    <div class="stars"></div>
-    <div class="twinkling"></div>
-    
-    <!-- Главный контейнер -->
+    <header>
+        <h1>Физика в карточках</h1>
+        <p class="subtitle">Изучайте сложные концепции физики через интерактивные карточки. Кликайте на карточку, чтобы перевернуть её и узнать больше информации.</p>
+    </header>
+
     <div class="container">
-        <!-- Шапка сайта -->
-        <header class="header">
-            <div class="logo">
-                <i class="fas fa-rocket"></i>
-                <h1>Космический гид</h1>
-            </div>
-            <nav class="nav">
-                <ul>
-                    <li><a href="#cards-section" class="nav-link">Объекты</a></li>
-                    <li><a href="#quiz-section" class="nav-link">Викторина</a></li>
-                    <li><a href="#achievements" class="nav-link">Достижения</a></li>
-                    <li><a href="#about" class="nav-link">О проекте</a></li>
-                </ul>
-            </nav>
-            <button class="menu-toggle" aria-label="Меню">
-                <i class="fas fa-bars"></i>
-            </button>
-        </header>
-
-        <!-- Герой-секция -->
-        <section class="hero">
-            <div class="hero-content">
-                <h2>Исследуйте тайны Вселенной</h2>
-                <p>Откройте для себя удивительные космические объекты, пройдите викторину и соберите все достижения!</p>
-                <button class="cta-button" id="explore-btn">Начать исследование</button>
-            </div>
-            <div class="hero-image">
-                <img src="images/backgrounds/astronaut.png" alt="Астронавт в космосе" class="floating">
-            </div>
-        </section>
-
-        <!-- Карточки с космическими объектами -->
-        <section class="cards-section" id="cards-section">
-            <h2 class="section-title">Космические объекты</h2>
-            <div class="filter-controls">
-                <button class="filter-btn active" data-filter="all">Все</button>
-                <button class="filter-btn" data-filter="planet">Планеты</button>
-                <button class="filter-btn" data-filter="star">Звезды</button>
-                <button class="filter-btn" data-filter="galaxy">Галактики</button>
-                <button class="filter-btn" data-filter="other">Другие</button>
-            </div>
-            <div class="cards-container" id="cards-container">
-                <!-- Карточки будут добавлены через JavaScript -->
-            </div>
-        </section>
-
-        <!-- Модальное окно для карточек -->
-        <div class="modal" id="card-modal">
-            <div class="modal-content">
-                <span class="close-modal">&times;</span>
-                <div class="modal-body">
-                    <img id="modal-image" src="" alt="">
-                    <div class="modal-text">
-                        <h3 id="modal-title"></h3>
-                        <p id="modal-description"></p>
-                        <div class="modal-facts">
-                            <h4>Интересные факты:</h4>
-                            <ul id="modal-facts"></ul>
-                        </div>
-                        <div class="modal-stats">
-                            <div class="stat-item">
-                                <i class="fas fa-ruler-combined"></i>
-                                <span id="modal-size"></span>
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-temperature-low"></i>
-                                <span id="modal-temp"></span>
-                            </div>
-                            <div class="stat-item">
-                                <i class="fas fa-history"></i>
-                                <span id="modal-age"></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Поиск по темам...">
+            <i class="fas fa-search search-icon"></i>
         </div>
 
-        <!-- Викторина -->
-        <section class="quiz-section" id="quiz-section">
-            <h2 class="section-title">Космическая викторина</h2>
-            <div class="quiz-container">
-                <div class="quiz-header">
-                    <div class="quiz-progress">
-                        <div class="progress-bar" id="progress-bar"></div>
-                        <span id="progress-text">0/10</span>
-                    </div>
-                    <div class="quiz-score">
-                        <i class="fas fa-star"></i>
-                        <span id="score">0</span>
-                    </div>
-                </div>
-                <div class="quiz-body">
-                    <h3 id="question"></h3>
-                    <div class="options" id="options"></div>
-                </div>
-                <div class="quiz-footer">
-                    <button id="next-btn" class="quiz-btn" disabled>Следующий вопрос</button>
-                </div>
-            </div>
-        </section>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-category="all">Все темы</button>
+            <button class="filter-btn" data-category="mechanics">Механика</button>
+            <button class="filter-btn" data-category="thermodynamics">Термодинамика</button>
+            <button class="filter-btn" data-category="electrodynamics">Электродинамика</button>
+            <button class="filter-btn" data-category="optics">Оптика</button>
+            <button class="filter-btn" data-category="quantum">Квантовая физика</button>
+        </div>
 
-        <!-- Достижения -->
-        <section class="achievements-section" id="achievements">
-            <h2 class="section-title">Достижения</h2>
-            <div class="achievements-container" id="achievements-container">
-                <!-- Достижения будут добавлены через JavaScript -->
-            </div>
-        </section>
-
-        <!-- О проекте -->
-        <section class="about-section" id="about">
-            <h2 class="section-title">О проекте</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>Космический гид - это интерактивный образовательный проект, созданный для всех, кто интересуется астрономией и хочет узнать больше о нашей Вселенной.</p>
-                    <p>Наш сайт предлагает:</p>
-                    <ul>
-                        <li>Подробную информацию о различных космических объектах</li>
-                        <li>Интерактивную викторину для проверки знаний</li>
-                        <li>Систему достижений для мотивации к обучению</li>
-                        <li>Красивый и удобный интерфейс</li>
-                    </ul>
-                    <p>Проект постоянно развивается, и в будущем мы планируем добавить новые функции, такие как 3D-модели космических объектов и систему отслеживания реальных космических событий.</p>
-                </div>
-                <div class="about-image">
-                    <img src="images/backgrounds/telescope.png" alt="Телескоп">
-                </div>
-            </div>
-        </section>
-
-        <!-- Подвал сайта -->
-        <footer class="footer">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Космический гид</h3>
-                    <p>Исследуйте Вселенную с нами!</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Контакты</h3>
-                    <p>cosmos@guide.com</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-                <div class="footer-section">
-                    <h3>Подписаться на новости</h3>
-                    <form class="subscribe-form">
-                        <input type="email" placeholder="Ваш email" required>
-                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
-                    </form>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2023 Космический гид. Все права защищены.</p>
-            </div>
-        </footer>
+        <div class="cards-container">
+            <!-- Карточки будут добавлены через JavaScript -->
+        </div>
     </div>
 
-    <!-- Кнопка возврата наверх -->
-    <button id="back-to-top" class="back-to-top" aria-label="Наверх">
-        <i class="fas fa-arrow-up"></i>
-    </button>
+    <footer>
+        <p>© 2023 Интерактивный учебник по физике | Создано с любовью к науке</p>
+    </footer>
 
-    <!-- Скрипты -->
-    <script src="scripts/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Данные карточек
+            const cardsData = [
+                {
+                    id: 1,
+                    title: "Законы Ньютона",
+                    category: "mechanics",
+                    frontContent: "Три фундаментальных закона, описывающих движение тел.",
+                    backContent: "1. Закон инерции: тело сохраняет состояние покоя или равномерного прямолинейного движения, пока внешние силы не изменят это состояние.<br><br>2. F=ma: ускорение тела прямо пропорционально действующей силе и обратно пропорционально его массе.<br><br>3. Закон действия и противодействия: на каждое действие есть равное и противоположное противодействие.",
+                    image: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                },
+                {
+                    id: 2,
+                    title: "Закон сохранения энергии",
+                    category: "mechanics",
+                    frontContent: "Фундаментальный закон физики о сохранении энергии.",
+                    backContent: "В замкнутой системе полная энергия остаётся постоянной, она может только превращаться из одной формы в другую. Энергия не создаётся и не уничтожается. В механике это означает, что сумма кинетической и потенциальной энергии остаётся постоянной, если нет диссипативных сил (трения).",
+                    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80"
+                },
+                {
+                    id: 3,
+                    title: "Второй закон термодинамики",
+                    category: "thermodynamics",
+                    frontContent: "Закон о направлении тепловых процессов.",
+                    backContent: "Теплота не может самопроизвольно переходить от тела менее нагретого к телу более нагретому. Альтернативные формулировки:<br><br>1. Невозможно создать вечный двигатель второго рода.<br>2. В замкнутой системе энтропия не убывает.<br><br>Этот закон определяет 'стрелу времени' и необратимость процессов в природе.",
+                    image: "https://images.unsplash.com/photo-1611095973763-414699ac0a53?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80"
+                },
+                {
+                    id: 4,
+                    title: "Закон Ома",
+                    category: "electrodynamics",
+                    frontContent: "Основной закон электрических цепей.",
+                    backContent: "Сила тока в участке цепи прямо пропорциональна напряжению и обратно пропорциональна сопротивлению этого участка: I = U/R.<br><br>Для полной цепи: I = ℰ/(R+r), где ℰ - ЭДС источника, R - сопротивление нагрузки, r - внутреннее сопротивление источника.<br><br>Закон справедлив для металлов и электролитов при постоянной температуре.",
+                    image: "https://images.unsplash.com/photo-1546707012-0c9f63ba29b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                },
+                {
+                    id: 5,
+                    title: "Закон преломления света",
+                    category: "optics",
+                    frontContent: "Закон Снеллиуса описывает преломление света.",
+                    backContent: "n₁·sinθ₁ = n₂·sinθ₂, где n₁ и n₂ - показатели преломления сред, θ₁ и θ₂ - углы падения и преломления.<br><br>При переходе в оптически более плотную среду (n₂ > n₁) луч преломляется к нормали. При угле падения больше критического происходит полное внутреннее отражение. Этот закон объясняет явления миража, радуги и работу линз.",
+                    image: "https://images.unsplash.com/photo-1517438322307-e67111335449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80"
+                },
+                {
+                    id: 6,
+                    title: "Принцип неопределённости",
+                    category: "quantum",
+                    frontContent: "Фундаментальное ограничение в квантовой механике.",
+                    backContent: "Δx·Δp ≥ ħ/2, где Δx - неопределённость координаты, Δp - неопределённость импульса, ħ - постоянная Планка.<br><br>Это не техническое ограничение, а фундаментальное свойство природы. Аналогичное соотношение существует для энергии и времени. Принцип показывает, что частицы не имеют точно определённых траекторий и ведут себя как волны.",
+                    image: "https://images.unsplash.com/photo-1532094349884-543bc11b234d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                },
+                {
+                    id: 7,
+                    title: "Эффект Доплера",
+                    category: "mechanics",
+                    frontContent: "Изменение частоты волн при движении источника или наблюдателя.",
+                    backContent: "Для звуковых волн: f' = f(v ± v₀)/(v ∓ vₛ), где f - исходная частота, v - скорость волны, v₀ - скорость наблюдателя, vₛ - скорость источника.<br><br>Для света в вакууме: λ' = λ√[(1 + β)/(1 - β)], где β = v/c. Эффект используется в радарах, астрономии (красное смещение), медицинской диагностике.",
+                    image: "https://images.unsplash.com/photo-1509023464722-18d996393ca8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                },
+                {
+                    id: 8,
+                    title: "Закон Кулона",
+                    category: "electrodynamics",
+                    frontContent: "Закон взаимодействия точечных зарядов.",
+                    backContent: "F = k·|q₁q₂|/r², где F - сила взаимодействия, q₁ и q₂ - величины зарядов, r - расстояние между ними, k - постоянная Кулона.<br><br>Одноимённые заряды отталкиваются, разноимённые притягиваются. Закон аналогичен закону всемирного тяготения, но электрические силы значительно сильнее гравитационных.",
+                    image: "https://images.unsplash.com/photo-1605649487212-47bdab064df7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+                },
+                {
+                    id: 9,
+                    title: "Уравнение Эйнштейна",
+                    category: "quantum",
+                    frontContent: "Связь массы и энергии.",
+                    backContent: "E = mc², где E - энергия, m - масса, c - скорость света.<br><br>Это уравнение показывает эквивалентность массы и энергии. Даже в покое тело обладает энергией. В ядерных реакциях небольшая часть массы превращается в огромное количество энергии из-за большого значения c².",
+                    image: "https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80"
+                },
+                {
+                    id: 10,
+                    title: "Интерференция света",
+                    category: "optics",
+                    frontContent: "Наложение волн с образованием устойчивой картины.",
+                    backContent: "Условие максимумов: Δd = mλ, минимумов: Δd = (m + ½)λ, где Δd - разность хода, m - целое число.<br><br>Интерференция доказывает волновую природу света. Явление используется в интерферометрах, антибликовых покрытиях, голографии. Тонкие плёнки создают цветные разводы из-за интерференции.",
+                    image: "https://images.unsplash.com/photo-1517438476312-10d79c077509?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80"
+                }
+            ];
+
+            const cardsContainer = document.querySelector('.cards-container');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const searchInput = document.querySelector('.search-input');
+
+            // Отображение всех карточек
+            function displayCards(cards) {
+                cardsContainer.innerHTML = '';
+                
+                if (cards.length === 0) {
+                    cardsContainer.innerHTML = '<div class="no-results">Ничего не найдено. Попробуйте изменить критерии поиска.</div>';
+                    return;
+                }
+                
+                cards.forEach(card => {
+                    const cardElement = document.createElement('div');
+                    cardElement.className = `card neon-border ${card.category}`;
+                    cardElement.dataset.category = card.category;
+                    cardElement.innerHTML = `
+                        <div class="card-inner">
+                            <div class="card-front">
+                                <span class="card-category ${card.category}">${getCategoryName(card.category)}</span>
+                                <h3 class="card-title">${card.title}</h3>
+                                <p class="card-content">${card.frontContent}</p>
+                                <div class="card-footer">
+                                    <span>Кликните, чтобы перевернуть</span>
+                                    <i class="fas fa-sync-alt flip-icon"></i>
+                                </div>
+                            </div>
+                            <div class="card-back">
+                                <img src="${card.image}" alt="${card.title}" class="card-image">
+                                <p class="card-content">${card.backContent}</p>
+                                <div class="card-footer">
+                                    <span>${getCategoryName(card.category)}</span>
+                                    <i class="fas fa-sync-alt flip-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    cardsContainer.appendChild(cardElement);
+                    
+                    // Добавляем обработчик клика для переворота карточки
+                    cardElement.addEventListener('click', function() {
+                        this.classList.toggle('flipped');
+                    });
+                });
+            }
+
+            // Получение читаемого названия категории
+            function getCategoryName(category) {
+                const names = {
+                    'mechanics': 'Механика',
+                    'thermodynamics': 'Термодинамика',
+                    'electrodynamics': 'Электродинамика',
+                    'optics': 'Оптика',
+                    'quantum': 'Квантовая физика'
+                };
+                return names[category] || category;
+            }
+
+            // Фильтрация карточек по категории
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Удаляем активный класс у всех кнопок
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Добавляем активный класс текущей кнопке
+                    this.classList.add('active');
+                    
+                    const category = this.dataset.category;
+                    filterCards(category);
+                });
+            });
+
+            // Функция фильтрации карточек
+            function filterCards(category) {
+                const searchTerm = searchInput.value.toLowerCase();
+                let filteredCards = cardsData;
+                
+                // Фильтрация по категории
+                if (category !== 'all') {
+                    filteredCards = filteredCards.filter(card => card.category === category);
+                }
+                
+                // Фильтрация по поисковому запросу
+                if (searchTerm) {
+                    filteredCards = filteredCards.filter(card => 
+                        card.title.toLowerCase().includes(searchTerm) || 
+                        card.frontContent.toLowerCase().includes(searchTerm) ||
+                        card.backContent.toLowerCase().includes(searchTerm) ||
+                        getCategoryName(card.category).toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                displayCards(filteredCards);
+            }
+
+            // Поиск карточек
+            searchInput.addEventListener('input', function() {
+                const activeFilter = document.querySelector('.filter-btn.active');
+                filterCards(activeFilter.dataset.category);
+            });
+
+            // Инициализация - показываем все карточки
+            displayCards(cardsData);
+        });
+    </script>
 </body>
 </html>
