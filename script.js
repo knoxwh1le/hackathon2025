@@ -1,22 +1,42 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll('.toggle-btn');
-
-  buttons.forEach(button => {
-    button.addEventListener('click', () => {
-      const card = button.closest('.card');
-      const fullContent = card.querySelector('.full-content');
-      const shortContent = card.querySelector('.short-content');
-
-      // Toggle visibility of full content
-      if (fullContent.style.display === 'block') {
-        fullContent.style.display = 'none';
-        shortContent.style.display = 'block';
-        button.textContent = 'Подробнее';
-      } else {
-        fullContent.style.display = 'block';
-        shortContent.style.display = 'none';
-        button.textContent = 'Скрыть';
-      }
-    });
-  });
-});
+// Данные для карточек
+const spaceObjects = [
+    {
+        id: 1,
+        title: "Солнце",
+        type: "star",
+        image: "images/planets/sun.jpg",
+        description: "Солнце - это звезда в центре нашей Солнечной системы. Это почти идеальная сфера горячей плазмы, нагретая до накала ядерными реакциями в её ядре.",
+        facts: [
+            "Солнце составляет 99.86% массы всей Солнечной системы",
+            "Оно производит энергию, эквивалентную 100 миллиардам водородных бомб каждую секунду",
+            "Солнцу требуется около 225-250 миллионов лет, чтобы совершить один оборот вокруг центра Млечного Пути"
+        ],
+        size: "Диаметр: 1,392,700 км",
+        temp: "Температура ядра: ~15 млн °C",
+        age: "Возраст: ~4.6 млрд лет"
+    },
+    {
+        id: 2,
+        title: "Меркурий",
+        type: "planet",
+        image: "images/planets/mercury.jpg",
+        description: "Меркурий - самая маленькая планета в Солнечной системе и ближайшая к Солнцу. Это каменистая планета с кратерированной поверхностью, похожей на Луну.",
+        facts: [
+            "Год на Меркурии длится всего 88 земных дней",
+            "Несмотря на близость к Солнцу, на Меркурии есть водяной лед в постоянно затененных кратерах на полюсах",
+            "Меркурий не имеет естественных спутников"
+        ],
+        size: "Диаметр: 4,880 км",
+        temp: "Температура: от -173°C до 427°C",
+        age: "Возраст: ~4.6 млрд лет"
+    },
+    {
+        id: 3,
+        title: "Венера",
+        type: "planet",
+        image: "images/planets/venus.jpg",
+        description: "Венера - вторая планета от Солнца, названная в честь римской богини любви и красоты. Это самая горячая планета в нашей системе, несмотря на то, что Меркурий ближе к Солнцу.",
+        facts: [
+            "Венера вращается в обратном направлении по сравнению с другими планетами",
+            "Атмосферное давление на поверхности Венеры в 92 раза больше, чем на Земле",
+            "Венера - самый яркий
