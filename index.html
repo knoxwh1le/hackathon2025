@@ -1,45 +1,158 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Экология: Важные аспекты</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Загадки Космоса</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: #fff;
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364);
+      background-size: 600% 600%;
+      animation: gradient 20s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      color: #cfe3fa;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      width: 90%;
+      margin: auto;
+      flex: 1;
+    }
+
+    .card {
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      transition: transform 0.8s;
+      transform-style: preserve-3d;
+    }
+
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    .card-front {
+      background: rgba(255, 255, 255, 0.15);
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 0.9rem;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  </style>
 </head>
+
 <body>
   <header>
-    <h1>Экология: Важные аспекты</h1>
-    <p>Познайте мир экологии через интерактивные карточки.</p>
+    <h1>Загадки Космоса</h1>
+    <p>Интерактивные факты о Вселенной, которые удивят вас</p>
   </header>
 
-  <main>
-    <section class="cards">
-      <div class="card" id="card1">
-        <h2>Что такое экология?</h2>
-        <p class="short-content">Экология изучает взаимоотношения живых существ с окружающей средой.</p>
-        <p class="full-content">Экология как наука охватывает взаимосвязи в природных экосистемах, влияние человека на природу и устойчивость экосистем к внешним воздействиям.</p>
-        <button class="toggle-btn">Подробнее</button>
+  <main class="grid">
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">Факт 1</div>
+        <div class="card-back">Один день на Венере длится дольше, чем её год.</div>
       </div>
-
-      <div class="card" id="card2">
-        <h2>Основные экологические проблемы</h2>
-        <p class="short-content">Загрязнение окружающей среды, вымирание видов, изменение климата.</p>
-        <p class="full-content">Загрязнение воздуха, воды и почвы, а также сокращение биоразнообразия стали ключевыми экологическими проблемами, с которыми сталкивается человечество в современном мире.</p>
-        <button class="toggle-btn">Подробнее</button>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">Факт 2</div>
+        <div class="card-back">Млечный Путь содержит около 200 миллиардов звёзд.</div>
       </div>
-
-      <div class="card" id="card3">
-        <h2>Зеленые технологии</h2>
-        <p class="short-content">Технологии, направленные на снижение воздействия на природу.</p>
-        <p class="full-content">Зеленые технологии включают использование возобновляемых источников энергии, переработку отходов и энергоэффективные устройства, которые помогают сократить углеродный след.</p>
-        <button class="toggle-btn">Подробнее</button>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">Факт 3</div>
+        <div class="card-back">На Сатурне идёт дождь из алмазов.</div>
       </div>
-    </section>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">Факт 4</div>
+        <div class="card-back">Космический вакуум может закипятить кровь без давления.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">Факт 5</div>
+        <div class="card-back">Свет от Солнца до Земли идёт около 8 минут.</div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">Факт 6</div>
+        <div class="card-back">Юпитер настолько большой, что в него поместились бы все планеты Солнечной системы.</div>
+      </div>
+    </div>
   </main>
 
   <footer>
-    <p>© 2025 Экология для всех | Разработано с использованием современных технологий</p>
+    <p>Сайт создан с использованием HTML, CSS и JS. Интерактивный контент — авторская работа. Хостинг: GitHub Pages.</p>
   </footer>
 </body>
+
 </html>
