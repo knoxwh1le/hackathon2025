@@ -16,8 +16,10 @@
     body {
       font-family: 'Roboto', sans-serif;
       color: #fff;
-      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364);
-      background-size: 600% 600%;
+      background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364), url('https://images.unsplash.com/photo-1473920964654-3fdfb86d4c4f?auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-attachment: fixed;
+      background-blend-mode: overlay;
       animation: gradient 20s ease infinite;
       min-height: 100vh;
       display: flex;
@@ -63,7 +65,7 @@
     .card-inner {
       position: relative;
       width: 100%;
-      height: 200px;
+      height: 280px;
       transition: transform 0.8s;
       transform-style: preserve-3d;
     }
@@ -79,21 +81,29 @@
       backface-visibility: hidden;
       border-radius: 1rem;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 1rem;
       font-size: 1rem;
       background: rgba(255, 255, 255, 0.1);
       box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      text-align: center;
     }
 
     .card-front {
       background: rgba(255, 255, 255, 0.15);
     }
 
+    .card-front img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 0.5rem;
+    }
+
     .card-back {
       transform: rotateY(180deg);
-      background: rgba(0, 0, 0, 0.5);
+      background: rgba(0, 0, 0, 0.6);
     }
 
     footer {
@@ -114,38 +124,90 @@
   <main class="grid">
     <div class="card">
       <div class="card-inner">
-        <div class="card-front">Факт 1</div>
-        <div class="card-back">Один день на Венере длится дольше, чем её год.</div>
+        <div class="card-front">
+          <img src="https://cdn-icons-png.flaticon.com/512/2909/2909821.png" alt="Венера">
+          <p>Факт 1</p>
+        </div>
+        <div class="card-back">
+          Один день на Венере длится дольше её года — планета вращается так медленно, что сутки там составляют 243 земных дня, а год — только 225.
+        </div>
       </div>
     </div>
     <div class="card">
       <div class="card-inner">
-        <div class="card-front">Факт 2</div>
-        <div class="card-back">Млечный Путь содержит около 200 миллиардов звёзд.</div>
+        <div class="card-front">
+          <img src="https://cdn-icons-png.flaticon.com/512/4144/4144550.png" alt="Звезды">
+          <p>Факт 2</p>
+        </div>
+        <div class="card-back">
+          В Млечном Пути находится более 200 миллиардов звёзд, и почти у каждой может быть собственная планетная система.
+        </div>
       </div>
     </div>
     <div class="card">
       <div class="card-inner">
-        <div class="card-front">Факт 3</div>
-        <div class="card-back">На Сатурне идёт дождь из алмазов.</div>
+        <div class="card-front">
+          <img src="https://cdn-icons-png.flaticon.com/512/3159/3159066.png" alt="Сатурн">
+          <p>Факт 3</p>
+        </div>
+        <div class="card-back">
+          На Сатурне и Юпитере могут идти дожди из алмазов, вызванные давлением и метаном в атмосфере — настоящий космический блеск!
+        </div>
       </div>
     </div>
     <div class="card">
       <div class="card-inner">
-        <div class="card-front">Факт 4</div>
-        <div class="card-back">Космический вакуум может закипятить кровь без давления.</div>
+        <div class="card-front">
+          <img src="https://cdn-icons-png.flaticon.com/512/4380/4380894.png" alt="Вакуум">
+          <p>Факт 4</p>
+        </div>
+        <div class="card-back">
+          В условиях космического вакуума человеческая кровь может закипеть из-за отсутствия давления, несмотря на то, что тело ещё не замерзло.
+        </div>
       </div>
     </div>
     <div class="card">
       <div class="card-inner">
-        <div class="card-front">Факт 5</div>
-        <div class="card-back">Свет от Солнца до Земли идёт около 8 минут.</div>
+        <div class="card-front">
+          <img src="https://cdn-icons-png.flaticon.com/512/1853/1853790.png" alt="Солнце">
+          <p>Факт 5</p>
+        </div>
+        <div class="card-back">
+          Свет от Солнца доходит до Земли за 8 минут и 20 секунд — значит, мы видим Солнце таким, каким оно было 8 минут назад.
+        </div>
       </div>
     </div>
     <div class="card">
       <div class="card-inner">
-        <div class="card-front">Факт 6</div>
-        <div class="card-back">Юпитер настолько большой, что в него поместились бы все планеты Солнечной системы.</div>
+        <div class="card-front">
+          <img src="https://cdn-icons-png.flaticon.com/512/3212/3212608.png" alt="Юпитер">
+          <p>Факт 6</p>
+        </div>
+        <div class="card-back">
+          Юпитер — самый большой объект в Солнечной системе после Солнца. В него можно уместить более 1300 планет размером с Землю.
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://cdn-icons-png.flaticon.com/512/1853/1853792.png" alt="Чёрная дыра">
+          <p>Факт 7</p>
+        </div>
+        <div class="card-back">
+          Чёрные дыры настолько плотные, что даже свет не может покинуть их гравитационное поле — они буквально искривляют пространство и время.
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-inner">
+        <div class="card-front">
+          <img src="https://cdn-icons-png.flaticon.com/512/1146/1146869.png" alt="Луна">
+          <p>Факт 8</p>
+        </div>
+        <div class="card-back">
+          Луна каждый год удаляется от Земли примерно на 3.8 см — со временем это может повлиять на продолжительность суток.
+        </div>
       </div>
     </div>
   </main>
