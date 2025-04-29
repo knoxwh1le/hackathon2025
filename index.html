@@ -1,127 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Планеты Солнечной системы</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #0d1117;
-      color: #c9d1d9;
-      margin: 0;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    h1 {
-      margin-bottom: 20px;
-    }
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      width: 100%;
-      max-width: 1000px;
-    }
-    .card {
-      perspective: 1000px;
-    }
-    .card-inner {
-      position: relative;
-      width: 100%;
-      padding-top: 125%;
-      transform-style: preserve-3d;
-      transition: transform 0.8s;
-      cursor: pointer;
-    }
-    .card:hover .card-inner,
-    .card.flipped .card-inner {
-      transform: rotateY(180deg);
-    }
-    .card-front, .card-back {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 15px;
-      padding: 20px;
-      box-sizing: border-box;
-      backface-visibility: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-    .card-front {
-      background-color: #161b22;
-      border: 2px solid #30363d;
-    }
-    .card-back {
-      background-color: #21262d;
-      transform: rotateY(180deg);
-      border: 2px solid #30363d;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Основы Экологии</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>Планеты Солнечной системы</h1>
-  <div class="card-grid" id="cardGrid"></div>
+  <header>
+    <h1>Основы Экологии</h1>
+    <p>Изучайте важные аспекты экологии через интерактивные карточки!</p>
+  </header>
 
-  <script>
-    const planets = [
-      {
-        name: 'Меркурий',
-        fact: 'Самая маленькая и ближайшая к Солнцу планета.'
-      },
-      {
-        name: 'Венера',
-        fact: 'Самая горячая планета с густой атмосферой CO₂.'
-      },
-      {
-        name: 'Земля',
-        fact: 'Единственная известная планета, поддерживающая жизнь.'
-      },
-      {
-        name: 'Марс',
-        fact: 'Известен как Красная планета из-за оксида железа.'
-      },
-      {
-        name: 'Юпитер',
-        fact: 'Крупнейшая планета, с большим красным пятном — штормом.'
-      },
-      {
-        name: 'Сатурн',
-        fact: 'Имеет самые яркие и заметные кольца.'
-      },
-      {
-        name: 'Уран',
-        fact: 'Вращается "на боку" и имеет голубой оттенок.'
-      },
-      {
-        name: 'Нептун',
-        fact: 'Самая отдалённая планета, известна сильнейшими ветрами.'
-      }
-    ];
+  <main>
+    <section class="card-container">
+      <div class="card" id="card1">
+        <h2>Что такое экология?</h2>
+        <p class="content">Экология — это наука о взаимодействии живых существ с их окружающей средой.</p>
+        <button class="btn-toggle">Подробнее</button>
+      </div>
 
-    const cardGrid = document.getElementById('cardGrid');
+      <div class="card" id="card2">
+        <h2>Экологические проблемы</h2>
+        <p class="content">Современные проблемы экологии включают загрязнение, вымирание видов, изменения климата.</p>
+        <button class="btn-toggle">Подробнее</button>
+      </div>
 
-    planets.forEach(planet => {
-      const card = document.createElement('div');
-      card.className = 'card';
-      card.innerHTML = `
-        <div class="card-inner">
-          <div class="card-front">${planet.name}</div>
-          <div class="card-back">${planet.fact}</div>
-        </div>
-      `;
-      card.addEventListener('click', () => {
-        card.classList.toggle('flipped');
-      });
-      cardGrid.appendChild(card);
-    });
-  </script>
+      <div class="card" id="card3">
+        <h2>Зеленые технологии</h2>
+        <p class="content">Зеленые технологии направлены на снижение воздействия человека на природу.</p>
+        <button class="btn-toggle">Подробнее</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Экологический сайт | Разработано с использованием технологий HTML, CSS, JS</p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
